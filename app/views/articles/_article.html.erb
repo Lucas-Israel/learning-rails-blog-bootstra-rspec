@@ -1,28 +1,36 @@
+<%# variables holding truncate style %>
+<% truncating_title = "display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" %>
+<% truncating_body = "display: block; white-space: wrap; overflow: hidden; text-overflow: ellipsis;" %>
+
+<%# div to hold all cards %>
 <div class="d-flex flex-row flex-wrap justify-content-between" style="width: 55rem;" >
+  <%# loop for cards with article and indexes %>
   <% for article, index in @articles.reverse.each.with_index %>
     <% unless article.archived? %>
       <% if index == 0 %>
+      <%# Bigger card %>
         <%= link_to article, class:"text-decoration-none" do %>
           <div id="<%= dom_id(article) %>">
             <div class="card border-success mb-3" style="width: 55rem; height: 18rem">
               <div class="card-header text-white bg-success">
-                <h5 class='m-0'><%= article.title %></h5>
+                <h5 class='m-0' style="<%= truncating_title %>"><%= article.title %></h5>
               </div>
               <div class="card-body">
-                <p class="card-text"><%= truncate article.body, length: 25, separator: '' %></p>
+                <p class="card-text" style="<%= truncating_body %>"><%= article.body%></p>
               </div>
             </div>
           </div>
         <% end %>
       <% elsif index < 6 %>
+      <%# Smaller cards to go under the bigger one %>
         <%= link_to article, class:"text-decoration-none" do %>
           <div id="<%= dom_id(article) %>">
             <div class="card border-primary" style="width: 10rem; height: 9rem">
               <div class="card-header text-white bg-primary">
-                <h5 class='m-0'><%= truncate article.title, length: 12, separator: '' %></h5>
+                <h5 class='m-0' style="<%= truncating_title %>"><%= article.title %></h5>
               </div>
               <div class="card-body">
-                <p class="card-text"><%= truncate article.body, length: 15, separator: '' %></p>
+                <p class="card-text" style="<%= truncating_body %>"><%= article.body%></p>
               </div>
             </div>
           </div>
