@@ -1,14 +1,21 @@
-<% unless article.archived? %>
-  <%= link_to article, class:"text-decoration-none" do %>
-    <div id="<%= dom_id(article) %>">
-      <div class="card container border-primary mb-3">
-        <div class="card-header row justify-content-between text-white bg-primary">
-          <h5 class='m-0'><%= article.title %></h5>
-        </div>
-        <div class="card-body">
-          <p class="card-text"><%= truncate article.body, length: 25, separator: ' ' %></p>
+<%card1 = "card container border-success mb-3"%>
+<%card2 = "card container border-primary mb-3"%>
+<%inside1 = "card-header row justify-content-between text-white bg-success"%>
+<%inside2 = "card-header row justify-content-between text-white bg-primary"%>
+
+<% for article, index in @articles.reverse.each.with_index %>
+  <% unless article.archived? %>
+    <%= link_to article, class:"text-decoration-none" do %>
+      <div id="<%= dom_id(article) %>">
+        <div class="<%= index == 0 ? card1 : card2 %>">
+          <div class="<%= index == 0 ? inside1 : inside2 %>">
+            <h5 class='m-0'><%= article.title %></h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text"><%= truncate article.body, length: 25, separator: ' ' %></p>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 <% end %>
