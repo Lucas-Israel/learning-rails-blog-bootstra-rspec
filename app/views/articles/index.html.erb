@@ -2,20 +2,8 @@
   <h1>Articles</h1>
 
   <% @articles.reverse.each do |article| %>
-    <% unless article.archived? %>
-      <%= link_to article, class:"text-decoration-none" do %>
-        <div id="<%= dom_id(article) %>">
-          <div class="card container border-primary mb-3">
-            <div class="card-header row justify-content-between text-white bg-primary">
-              <h5 class='m-0'><%= article.title %></h5>
-            </div>
-            <div class="card-body">
-              <p class="card-text"><%= truncate article.body, length: 15, separator: ' ' %></p>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
+    <%= article.id %>
+    <%= render article %>
   <% end %>
 
   <p>
