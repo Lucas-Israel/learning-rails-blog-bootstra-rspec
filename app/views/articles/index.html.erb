@@ -3,8 +3,8 @@
 
   <%= render 'article', collection: @articles %>
 
-  <p>
+  <p class="mt-3" >
     Our blog has <%= Article.public_count %> articles and counting!
   </p>
-  <%= link_to "New Article", new_article_path %>
+  <%= link_to "New Article", new_article_path, class: "btn btn-primary" %>
 </div>

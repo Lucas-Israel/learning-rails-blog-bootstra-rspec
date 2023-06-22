@@ -1,9 +1,26 @@
 <%# variables holding truncate style %>
 <% truncating_title = "display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" %>
-<% truncating_body = "display: block; white-space: wrap; overflow: hidden; text-overflow: ellipsis;" %>
+<% truncating_body_big = "
+  overflow:hidden;
+  -webkit-box-orient: vertical;
+  display: block;
+  display: -webkit-box;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 9;" 
+%>
+<% truncating_body = "
+  overflow:hidden;
+  -webkit-box-orient: vertical;
+  display: block;
+  display: -webkit-box;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;" 
+%>
 
 <%# div to hold all cards %>
-<div class="d-flex flex-row flex-wrap justify-content-between" style="width: 55rem;" >
+<div class="d-flex flex-row flex-wrap justify-content-between" style="max-width: 55rem;" >
   <%# loop for cards with article and indexes %>
   <% for article, index in @articles.reverse.each.with_index %>
     <% unless article.archived? %>
@@ -11,12 +28,12 @@
       <%# Bigger card %>
         <%= link_to article, class:"text-decoration-none" do %>
           <div id="<%= dom_id(article) %>">
-            <div class="card border-success mb-3" style="width: 55rem; height: 18rem">
+            <div class="card border-success mb-3" style="max-width: 55rem; height: 18rem">
               <div class="card-header text-white bg-success">
                 <h5 class='m-0' style="<%= truncating_title %>"><%= article.title %></h5>
               </div>
               <div class="card-body">
-                <p class="card-text" style="<%= truncating_body %>"><%= article.body%></p>
+                <p class="card-text bg-warning" style="<%= truncating_body_big %>"><%= article.body%></p>
               </div>
             </div>
           </div>
@@ -25,12 +42,12 @@
       <%# Smaller cards to go under the bigger one %>
         <%= link_to article, class:"text-decoration-none" do %>
           <div id="<%= dom_id(article) %>">
-            <div class="card border-primary" style="width: 10rem; height: 9rem">
+            <div class="card border-primary mb-3" style="max-width: 10rem; height: 9rem">
               <div class="card-header text-white bg-primary">
                 <h5 class='m-0' style="<%= truncating_title %>"><%= article.title %></h5>
               </div>
               <div class="card-body">
-                <p class="card-text" style="<%= truncating_body %>"><%= article.body%></p>
+                <p class="card-text bg-danger" style="<%= truncating_body %>"><%= article.body%></p>
               </div>
             </div>
           </div>
