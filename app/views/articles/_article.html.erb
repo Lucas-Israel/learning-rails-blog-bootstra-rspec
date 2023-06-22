@@ -1,21 +1,33 @@
-<%card1 = "card container border-success mb-3"%>
-<%card2 = "card container border-primary mb-3"%>
-<%inside1 = "card-header row justify-content-between text-white bg-success"%>
-<%inside2 = "card-header row justify-content-between text-white bg-primary"%>
-
-<% for article, index in @articles.reverse.each.with_index %>
-  <% unless article.archived? %>
-    <%= link_to article, class:"text-decoration-none" do %>
-      <div id="<%= dom_id(article) %>">
-        <div class="<%= index == 0 ? card1 : card2 %>">
-          <div class="<%= index == 0 ? inside1 : inside2 %>">
-            <h5 class='m-0'><%= article.title %></h5>
+<div class="d-flex flex-row flex-wrap justify-content-between" style="width: 55rem;" >
+  <% for article, index in @articles.reverse.each.with_index %>
+    <% unless article.archived? %>
+      <% if index == 0 %>
+        <%= link_to article, class:"text-decoration-none" do %>
+          <div id="<%= dom_id(article) %>">
+            <div class="card border-success mb-3" style="width: 55rem; height: 18rem">
+              <div class="card-header text-white bg-success">
+                <h5 class='m-0'><%= article.title %></h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text"><%= truncate article.body, length: 25, separator: '' %></p>
+              </div>
+            </div>
           </div>
-          <div class="card-body">
-            <p class="card-text"><%= truncate article.body, length: 25, separator: ' ' %></p>
+        <% end %>
+      <% elsif index < 6 %>
+        <%= link_to article, class:"text-decoration-none" do %>
+          <div id="<%= dom_id(article) %>">
+            <div class="card border-primary" style="width: 10rem; height: 9rem">
+              <div class="card-header text-white bg-primary">
+                <h5 class='m-0'><%= truncate article.title, length: 12, separator: '' %></h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text"><%= truncate article.body, length: 15, separator: '' %></p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
+</div>
