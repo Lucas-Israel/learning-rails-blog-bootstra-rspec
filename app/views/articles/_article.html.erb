@@ -1,5 +1,5 @@
 <%# div to hold all cards %>
-<div class="d-flex flex-row flex-wrap justify-content-between" style="width: 50rem;" >
+<div class="d-flex flex-row flex-wrap justify-content-between" style="max-width: 50rem;" >
   <%# loop for cards with article and indexes %>
   <% for article, index in @articles.reverse.each.with_index %>
     <% unless article.archived? %>
