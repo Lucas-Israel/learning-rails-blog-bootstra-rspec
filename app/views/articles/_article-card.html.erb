@@ -17,7 +17,7 @@
   updated = article.updated_at
   today = DateTime.now.utc
   days_diff = (today - updated).to_i / 86400
-  days_message = days_diff == 1 ? "#{days_diff} day ago" : "#{days_diff} days ago"
+  days_message = days_diff == 1 ? "#1 day ago" : "#{days_diff} days ago"
   last_update_message = days_diff < 1 ? "today" : days_message
 %>
 
@@ -28,8 +28,8 @@
     <div class="col-md-4">
       <%= image_tag "place.jpg", class:"img-fluid rounded-start", alt:article.title %>
     </div>
-    <div class="col-md-8">
-      <div class="card-body">
+    <div class="col-md-8 d-flex flex-column">
+      <div class="card-body d-flex flex-column justify-content-between">
         <h5 class="card-title" style="<%= truncating_title %>"><%= article.title %></h5>
         <p class="card-text" style="<%= truncating_body_big %>"><%= article.body%></p>
         <p class="card-text"><small class="text-muted">Last updated: <%= last_update_message %></small></p>
