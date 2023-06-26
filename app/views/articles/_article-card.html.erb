@@ -1,0 +1,39 @@
+<%# variables holding truncate style %>
+<% 
+  truncating_title = "display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+  truncating_body_big = "
+    overflow:hidden;
+    -webkit-box-orient: vertical;
+    display: block;
+    display: -webkit-box;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+  " 
+%>
+
+<%# logic and message for update time %>
+<%
+  updated = article.updated_at
+  today = DateTime.now.utc
+  days_diff = (today - updated).to_i / 86400
+  days_message = days_diff == 1 ? "#{days_diff} day ago" : "#{days_diff} days ago"
+  last_update_message = days_diff < 1 ? "today" : days_message
+%>
+
+
+<%# Card itself %>
+<div class="card mb-3" style="width: 50rem;" id="<%= dom_id(article) %>">
+  <div class="row g-0" >
+    <div class="col-md-4">
+      <%= image_tag "place.jpg", class:"img-fluid rounded-start", alt:article.title %>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title" style="<%= truncating_title %>"><%= article.title %></h5>
+        <p class="card-text" style="<%= truncating_body_big %>"><%= article.body%></p>
+        <p class="card-text"><small class="text-muted">Last updated: <%= last_update_message %></small></p>
+      </div>
+    </div>
+  </div>
+</div>
